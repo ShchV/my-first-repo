@@ -1,0 +1,109 @@
+PS C:\Users\RuVi> newman run .\Desktop\Victoriia_Shcherbatiuk_L5.postman_collection.json `
+>>   --environment ".\Desktop\New Environment.postman_environment.json" `
+>>   --reporters json `
+>>   --reporter-json-export ".\clickup-report.json"
+PS C:\Users\RuVi>
+PS C:\Users\RuVi> newman run .\Desktop\Victoriia_Shcherbatiuk_L5.postman_collection.json `
+>>   --environment ".\Desktop\New Environment.postman_environment.json"
+newman
+
+Victoriia_Shcherbatiuk L5
+
+□ Create
+└ Create List
+  POST https://api.clickup.com/api/v2/folder/90156625817/list [400 Bad Request, 1kB, 190ms]
+  ┌
+  │ 'Created list with ID:', undefined
+  └
+  POST https://api.clickup.com/api/v2/folder/90156625817/list [401 Unauthorized, 971B, 310ms]
+  1. Status code is 200
+
+□ Read
+└ GET List
+  GET https://api.clickup.com/api/v2/folder/90156625817/list [400 Bad Request, 1kB, 239ms]
+  ┌
+  │ 'Created list with ID:', undefined
+  └
+  GET https://api.clickup.com/api/v2/folder/90156625817/list [401 Unauthorized, 971B, 125ms]
+  2. Status code is 200
+  ┌
+  │ `Using "tv4" is deprecated. Use "require('ajv')" instead.`
+  └
+  3. Схема відповіді відповідає очікуванню
+  4. Вивести всі ID списків
+
+└ Get List
+  GET https://api.clickup.com/api/v2/folder/90156625817/list [400 Bad Request, 1kB, 207ms]
+  ┌
+  │ 'Created list with ID:', undefined
+  └
+  GET https://api.clickup.com/api/v2/folder/90156625817/list [401 Unauthorized, 996B, 83ms]
+  5. GET: Status code is 200
+  √  Вивід ID списків
+
+□ Update
+└ Update list
+  PUT https://api.clickup.com/api/v2/list/901510905844 [401 Unauthorized, 971B, 138ms]
+  6. Status code is 200
+
+□ Delete
+└ Delete
+  DELETE https://api.clickup.com/api/v2/list/901510905844 [401 Unauthorized, 996B, 140ms]
+  7. Status code is 200
+
+┌─────────────────────────┬────────────────────┬───────────────────┐
+│                         │           executed │            failed │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              iterations │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│                requests │                  8 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│            test-scripts │                  5 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│      prerequest-scripts │                  5 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              assertions │                  8 │                 7 │
+├─────────────────────────┴────────────────────┴───────────────────┤
+│ total run duration: 1989ms                                       │
+├──────────────────────────────────────────────────────────────────┤
+│ total data received: 432B (approx)                               │
+├──────────────────────────────────────────────────────────────────┤
+│ average response time: 179ms [min: 83ms, max: 310ms, s.d.: 68ms] │
+└──────────────────────────────────────────────────────────────────┘
+
+  #  failure                detail
+
+ 1.  AssertionError         Status code is 200
+                            expected response to have status code 200 but got 401
+                            at assertion:0 in test-script
+                            inside "Create / Create List"
+
+ 2.  AssertionError         Status code is 200
+                            expected response to have status code 200 but got 401
+                            at assertion:0 in test-script
+                            inside "Read / GET List"
+
+ 3.  AssertionError         Схема відповіді відповідає очікуванню
+                            expected false to be true
+                            at assertion:1 in test-script
+                            inside "Read / GET List"
+
+ 4.  TypeError              Вивести всі ID списків
+                            Cannot read properties of undefined (reading 'forEach')
+                            at assertion:2 in test-script
+                            inside "Read / GET List"
+
+ 5.  AssertionError         GET: Status code is 200
+                            expected response to have status code 200 but got 401
+                            at assertion:0 in test-script
+                            inside "Read / Get List"
+
+ 6.  AssertionError         Status code is 200
+                            expected response to have status code 200 but got 401
+                            at assertion:0 in test-script
+                            inside "Update / Update list"
+
+ 7.  AssertionError         Status code is 200
+                            expected response to have status code 200 but got 401
+                            at assertion:0 in test-script
+                            inside "Delete / Delete"

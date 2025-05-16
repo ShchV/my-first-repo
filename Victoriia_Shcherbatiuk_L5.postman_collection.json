@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "447a8bef-cf6b-46c0-9089-7f4053605810",
+		"name": "Victoriia_Shcherbatiuk L5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "39703152"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Create List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"",
+									"",
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"list_id\", jsonData.id);",
+									"    pm.test(\"ID витягнуто і збережено\", function () {",
+									"        pm.expect(pm.environment.get(\"list_id\")).to.not.be.undefined;",
+									"    });",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: pm.variables.get(\"url\") + \"/folder/90156625817/list\",\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'Authorization': pm.variables.get(\"clickup-api\")\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            name: \"Auto-List \" + new Date().getTime(),\r",
+									"            content: \"Created in pre-request\",\r",
+									"            priority: 1,\r",
+									"            status: \"green\"\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (!err) {\r",
+									"        let jsonData = res.json();\r",
+									"        pm.environment.set(\"created_list_id\", jsonData.id);\r",
+									"        console.log(\"Created list with ID:\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{vault:clickup-api:value}}",
+								"key": "Authorization",
+								"in": "header"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomUserName}}\",\r\n  \"content\": \"New List Content\",\r\n  \"due_date\": 1567780450202,\r\n  \"due_date_time\": false,\r\n  \"priority\": 1,\r\n  \"status\": \"red\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156625817/list"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Read",
+			"item": [
+				{
+					"name": "GET List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"pm.sendRequest({",
+									"    url: pm.variables.get(\"url\") + \"/folder/90156625817/list\",",
+									"    method: 'GET',",
+									"    header: {",
+									"        'Content-Type': 'application/json',",
+									"        'Authorization': pm.variables.get(\"clickup-api\")",
+									"    },",
+									"}, function (err, res) {",
+									"    if (!err) {",
+									"        let jsonData = res.json();",
+									"        pm.environment.set(\"created_list_id\", jsonData.id);",
+									"        console.log(\"Created list with ID:\", jsonData.id);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Схема відповіді відповідає очікуванню\", function () {\r",
+									"    var schema = {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"lists\": {\r",
+									"                \"type\": \"array\",\r",
+									"                \"items\": {\r",
+									"                    \"type\": \"object\",\r",
+									"                    \"properties\": {\r",
+									"                        \"id\": { \"type\": \"string\" },\r",
+									"                        \"name\": { \"type\": \"string\" }\r",
+									"                    },\r",
+									"                    \"required\": [\"id\", \"name\"]\r",
+									"                }\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\"lists\"]\r",
+									"    };\r",
+									"\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"pm.test(\"Вивести всі ID списків\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    jsonData.lists.forEach(list => {\r",
+									"        console.log(\"List ID:\", list.id);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{vault:clickup-api:value}}",
+								"key": "Authorization",
+								"in": "header"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{url}}/folder/90156625817/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Get List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"GET: Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Вивід ID списків\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.lists) {",
+									"        jsonData.lists.forEach(list => {",
+									"            console.log(\"ID:\", list.id);",
+									"        });",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: pm.variables.get(\"url\") + \"/folder/90156625817/list\",\r",
+									"    method: 'GET',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'Authorization': pm.variables.get(\"clickup-api\")\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    if (!err) {\r",
+									"        let jsonData = res.json();\r",
+									"        pm.environment.set(\"created_list_id\", jsonData.id);\r",
+									"        console.log(\"Created list with ID:\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{vault:clickup-api:value}}",
+								"key": "Authorization",
+								"in": "header"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/folder/90156625817/list"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "Update list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.test(\"Перевірити, що ім'я оновлено\", function () {",
+									"        pm.expect(jsonData.name).to.include(\"Updated\");",
+									"    });",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{vault:clickup-api:value}}",
+								"key": "Authorization",
+								"in": "header"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated {{$randomUserName}}\",\r\n  \"content\": \"Updated List Content\",\r\n  \"due_date\": 1567780450202,\r\n  \"due_date_time\": true,\r\n  \"priority\": 2,\r\n  \"status\": \"red\",\r\n  \"unset_status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/list/901510905844"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.test(\"Deleted\", function () {",
+									"        pm.expect(jsonData.name).to.include(\"Deleted\");",
+									"    });",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{vault:clickup-api:value}}",
+								"key": "Authorization",
+								"in": "header"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{url}}/list/901510905844"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
