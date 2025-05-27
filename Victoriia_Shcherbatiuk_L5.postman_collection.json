@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "447a8bef-cf6b-46c0-9089-7f4053605810",
-		"name": "Victoriia_Shcherbatiuk L5",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_postman_id": "7645798d-0034-4bbb-ab09-1fe5595fba38",
+		"name": "Victoriia_Shcherbatiuk L5 Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "39703152"
 	},
 	"item": [
@@ -70,11 +70,23 @@
 					"request": {
 						"auth": {
 							"type": "apikey",
-							"apikey": {
-								"value": "{{vault:clickup-api:value}}",
-								"key": "Authorization",
-								"in": "header"
-							}
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{Authorization}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [
@@ -98,7 +110,17 @@
 								}
 							}
 						},
-						"url": "{{url}}/folder/90156625817/list"
+						"url": {
+							"raw": "{{url}}/folder/90156625817/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"90156625817",
+								"list"
+							]
+						}
 					},
 					"response": []
 				}
@@ -180,11 +202,23 @@
 					"request": {
 						"auth": {
 							"type": "apikey",
-							"apikey": {
-								"value": "{{vault:clickup-api:value}}",
-								"key": "Authorization",
-								"in": "header"
-							}
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{Authorization}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [
@@ -199,7 +233,17 @@
 								"type": "text"
 							}
 						],
-						"url": "{{url}}/folder/90156625817/list"
+						"url": {
+							"raw": "{{url}}/folder/90156625817/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"90156625817",
+								"list"
+							]
+						}
 					},
 					"response": []
 				},
@@ -255,15 +299,37 @@
 					"request": {
 						"auth": {
 							"type": "apikey",
-							"apikey": {
-								"value": "{{vault:clickup-api:value}}",
-								"key": "Authorization",
-								"in": "header"
-							}
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{Authorization}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/folder/90156625817/list"
+						"url": {
+							"raw": "{{url}}/folder/90156625817/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"90156625817",
+								"list"
+							]
+						}
 					},
 					"response": []
 				}
@@ -309,11 +375,23 @@
 					"request": {
 						"auth": {
 							"type": "apikey",
-							"apikey": {
-								"value": "{{vault:clickup-api:value}}",
-								"key": "Authorization",
-								"in": "header"
-							}
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{Authorization}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [
@@ -337,7 +415,16 @@
 								}
 							}
 						},
-						"url": "{{url}}/list/901510905844"
+						"url": {
+							"raw": "{{url}}/list/901510905844",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"901510905844"
+							]
+						}
 					},
 					"response": []
 				}
@@ -383,11 +470,23 @@
 					"request": {
 						"auth": {
 							"type": "apikey",
-							"apikey": {
-								"value": "{{vault:clickup-api:value}}",
-								"key": "Authorization",
-								"in": "header"
-							}
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{Authorization}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [
@@ -404,7 +503,16 @@
 								"disabled": true
 							}
 						],
-						"url": "{{url}}/list/901510905844"
+						"url": {
+							"raw": "{{url}}/list/901510905844",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"901510905844"
+							]
+						}
 					},
 					"response": []
 				}
